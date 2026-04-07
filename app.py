@@ -10,7 +10,7 @@ RC_BASE_URL = "https://www.recurse.com"
 @app.route("/.well-known/openid-configuration")
 def openid_configuration():
     base = request.host_url.rstrip("/")
-    return jsonify({
+    resp = jsonify({
         "issuer": base,
         "authorization_endpoint": f"{RC_BASE_URL}/oauth/authorize",
         "token_endpoint": f"{RC_BASE_URL}/oauth/token",
@@ -21,6 +21,9 @@ def openid_configuration():
         "scopes_supported": ["profile"],
         "token_endpoint_auth_methods_supported": ["client_secret_post"],
     })
+    resp.headers["Cache-Control"] = "no-store"
+    resp.headers["Content-Encoding"] = "identity"
+    return resp
 
 
 @app.route("/userinfo")
