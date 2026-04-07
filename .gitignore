@@ -1,3 +1,4 @@
 *.md
-*.txt
+*-wiki.txt
+Heap-Community-Cluster.txt
 .claude/
